@@ -130,7 +130,7 @@ if rootWidget then
         end, offPainel)
 
         UI.Button("FirstRush", function() 
-          say('.55 firstrush') 
+          talkPrivate(storage.Tanker, '.55 firstrush') 
         end, onPainel)
 
         UI.Button("AbortFirstRush", function() 
@@ -250,6 +250,7 @@ storage.lider = newText
 end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
+    if name == player:getName() then return end
     if channelId == 0 and name == storage.lider then
         local x, y, z = string.match(text, "Agroup X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
         if x and y and z then
