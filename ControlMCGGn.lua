@@ -309,11 +309,12 @@ onTalk(function(name, level, mode, text, channelId, pos)
 end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if text == ('.55 pvp on') then
-        say('!pvp on')
-    end
-    if text == ('.55 pvp off') then
-        say('!pvp off')
+    if name == storage.lider then
+        if text == ('.55 pvp on') then
+            say('!pvp on')
+        elseif text == ('.55 pvp off') then
+            say('!pvp off')
+        end
     end
 end)
 
