@@ -134,10 +134,10 @@ if rootWidget then
           sayChannel(0,'.55 pvp off') 
         end, offPainel)
 
-        UI.Button("Pvp on", function() 
+        UI.Button("FirstRush", function() 
           say('.55 firstrush') 
         end, onPainel)
-        UI.Button("Pvp off", function() 
+        UI.Button("OffFirstRush", function() 
           sayChannel(0,'.55 abortrush') 
         end, offPainel)
 
