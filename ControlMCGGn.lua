@@ -124,8 +124,16 @@ if rootWidget then
         UI.Button("Pvp on", function() 
           sayChannel(0,'.55 pvp on') 
         end, onPainel)
+
         UI.Button("Pvp off", function() 
           sayChannel(0,'.55 pvp off') 
+        end, offPainel)
+
+        UI.Button("Pvp on", function() 
+          say('.55 firstrush') 
+        end, onPainel)
+        UI.Button("Pvp off", function() 
+          sayChannel(0,'.55 abortrush') 
         end, offPainel)
 
         voltarggn = macro(200, 'ggnback', function()
@@ -143,7 +151,7 @@ if rootWidget then
                 end)
             end
         end,MacrosPainel)
-        
+
         delaycontrol = now
         macro(1, 'mccontrol', function()
             if delaycontrol > now then return end
@@ -169,6 +177,7 @@ if rootWidget then
         end,MacrosPainel)
         geradoresquerda = macro(200, 'Gen Esquerda',function()end,MacrosPainel)
         geradordireita = macro(200, 'Gen direita',function()end,MacrosPainel)
+        firstrush = macro(200, 'FirstRush',function()end,MacrosPainel)
     end
 
     McControlWindows.closeButton.onClick = function(widget)
@@ -199,6 +208,18 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
+onTalk(function(name, level, mode, text, channelId, pos)
+    if firstrush.isOn() then
+        if channelId == 0 and name == storage.lider then
+            local x, y, z = string.match(text, "FirstRush X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
+            if x and y and z then
+                destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
+                info("Destino: " .. x .. "," .. y .. "," .. z)
+            end
+        end
+    end
+end)
+
 macro(200, function()
     if destPos then
         local pos = player:getPosition()
@@ -219,6 +240,15 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if text == ('.55 useImortal') then
         say('Jujutsu Shiji Hyoketsu')
         say('kawarimi no jutsu defensive')
+    end
+end)
+
+onTalk(function(name, level, mode, text, channelId, pos)
+    if text == ('.55 firstrush') then
+        firstrush.setOn()
+    end
+    if text == ('.55 abortrush') then
+        firstrush.setOff()
     end
 end)
 
