@@ -1,4 +1,4 @@
-
+setDefaultTab("Main")
 local ConfigPainel = "Config"
 local ui = setupUI([[
 ssPanel < Panel
@@ -122,9 +122,7 @@ if rootWidget then
         end, onPainel)
         UI.Button("Pvp off", function() 
           sayChannel(0,'.55 pvp off') 
-        end, offPainel)
-        
-        
+        end, offPainel)       
         
     end
 
