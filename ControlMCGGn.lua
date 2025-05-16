@@ -132,6 +132,7 @@ if rootWidget then
         UI.Button("FirstRush", function() 
           say('.55 firstrush') 
         end, onPainel)
+
         UI.Button("AbortFirstRush", function() 
           sayChannel(0,'.55 abortrush') 
         end, offPainel)
@@ -239,6 +240,9 @@ if rootWidget then
 end
 
 
+UI.TextEdit(storage.Tanker or "McKevin", function(widget, newText)
+storage.Tanker = newText
+end)
 
 
 UI.TextEdit(storage.lider or "Madamada", function(widget, newText)
