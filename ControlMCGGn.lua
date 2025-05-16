@@ -265,7 +265,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
 end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if firstrush.isOff() or if name == player:getName() then return end
+    if firstrush.isOff() or name == player:getName() then return end
     if channelId == 0 and name == storage.lider then
         local x, y, z = string.match(text, "FirstRush X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
         if x and y and z then
