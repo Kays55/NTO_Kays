@@ -297,8 +297,6 @@ sqmbarco = {x = 1948,y = 1071, z = 6}
 SqmCristalEsquerda = {x = 1912, y = 867,z = 7}
 SqmCristalDireita = {x=2073,y=932,z=7}
 
-geradoresquerda = macro(200, 'Gen Esquerda',function()end)
-geradordireita = macro(200, 'Gen direita',function()end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
     if text:find('voltar direita') then
