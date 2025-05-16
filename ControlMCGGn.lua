@@ -85,6 +85,10 @@ if rootWidget then
           sayChannel(0,'.55 voltar direita') 
         end, onPainel)
 
+        UI.Button("StackStair", function() 
+          sayChannel(0,'.55 wait ponte') 
+        end, onPainel)        
+
         UI.Button("LigarTargetName", function() 
           sayChannel(0,'.55 ligartarget') 
         end, onPainel)
@@ -340,15 +344,15 @@ SqmCristalDireita = {x=2073,y=932,z=7}
 
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if text == ('voltar direita') then
+    if text == ('.55 voltar direita') then
         geradoresquerda.setOff()
         geradordireita.setOn()
     end
-    if text == ('voltar esquerda') then
+    if text == ('.55 voltar esquerda') then
         geradoresquerda.setOn()
         geradordireita.setOff()
     end
-    if text == 'wait ponte' then
+    if text == '.55 wait ponte' then
         geradoresquerda.setOff()
         geradordireita.setOff()
     end
