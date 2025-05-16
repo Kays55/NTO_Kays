@@ -172,7 +172,7 @@ if rootWidget then
 
         macro(1, 'RushControl', function()
             if delaycontrol > now then return end
-            if modules.corelib.g_keyboard.areKeysPressed('Alt') and modules.corelib.g_keyboard.areKeysPressed('-') then
+            if modules.corelib.g_keyboard.areKeysPressed('Alt') and modules.corelib.g_keyboard.areKeysPressed('9') then
                 tile = getTileUnderCursor()
                     if tile then
                     tilepos = tile:getPosition()
