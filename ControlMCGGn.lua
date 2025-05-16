@@ -265,13 +265,12 @@ onTalk(function(name, level, mode, text, channelId, pos)
 end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if firstrush.isOn() then
-        if channelId == 0 and name == storage.lider then
-            local x, y, z = string.match(text, "FirstRush X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
-            if x and y and z then
-                destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
-                info("Destino: " .. x .. "," .. y .. "," .. z)
-            end
+    if firstrush.isOff() or if name == player:getName() then return end
+    if channelId == 0 and name == storage.lider then
+        local x, y, z = string.match(text, "FirstRush X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
+        if x and y and z then
+            destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
+            info("Destino: " .. x .. "," .. y .. "," .. z)
         end
     end
 end)
