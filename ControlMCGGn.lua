@@ -85,11 +85,6 @@ if rootWidget then
           sayChannel(0,'.55 voltar direita') 
         end, onPainel)
 
-        UI.Button("WaitPonte", function() 
-          sayChannel(0,'.55 wait ponte') 
-        end, onPainel
-        
-
         UI.Button("LigarTargetName", function() 
           sayChannel(0,'.55 ligartarget') 
         end, onPainel)
@@ -134,10 +129,10 @@ if rootWidget then
           sayChannel(0,'.55 pvp off') 
         end, offPainel)
 
-        UI.Button("FirstRush", function() 
+        UI.Button("Pvp on", function() 
           say('.55 firstrush') 
         end, onPainel)
-        UI.Button("OffFirstRush", function() 
+        UI.Button("Pvp off", function() 
           sayChannel(0,'.55 abortrush') 
         end, offPainel)
 
@@ -195,6 +190,41 @@ if rootWidget then
         geradoresquerda = macro(200, 'Cristal Esquerda',function()end,MacrosPainel)
         geradordireita = macro(200, 'Cristal direita',function()end,MacrosPainel)
         firstrush = macro(200, 'FirstRush',function()end,MacrosPainel)
+
+        local friendList = {'toei', 'ryan', 'darknuss', ''}
+
+        --- nao editar nada abaixo disso
+
+        for index, friendName in ipairs(friendList) do
+             friendList[friendName:lower():trim()] = true
+            friendList[index] = nil
+        end
+
+
+
+
+
+        chiclete100 = macro(1, 'Chiclete 100% Ryan', function()
+          local possibleTarget = false
+          for _, creature in ipairs(getSpectators(posz())) do
+            local specHP = creature:getHealthPercent()
+            if creature:isPlayer() and specHP and specHP > 0 and specHP <= 100 then
+              if not friendList[creature:getName():lower()] and creature:getEmblem() ~= 1  then
+                if creature:canShoot() then
+                  if not possibleTarget or possibleTargetHP > specHP or (possibleTargetHP == specHP and possibleTarget:getId() < creature:getId()) then
+                    possibleTarget = creature
+                    possibleTargetHP = possibleTarget:getHealthPercent()
+                  end
+                end
+              end
+            end
+          end
+          if possibleTarget and g_game.getAttackingCreature() ~= possibleTarget then
+            g_game.attack(possibleTarget)
+        end
+        end,MacrosPainel)
+
+
     end
 
     McControlWindows.closeButton.onClick = function(widget)
@@ -304,15 +334,15 @@ SqmCristalDireita = {x=2073,y=932,z=7}
 
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if text == ('.55 voltar direita') then
+    if text == ('voltar direita') then
         geradoresquerda.setOff()
         geradordireita.setOn()
     end
-    if text == ('.55 voltar esquerda') then
+    if text == ('voltar esquerda') then
         geradoresquerda.setOn()
         geradordireita.setOff()
     end
-    if text == '.55 wait ponte' then
+    if text == 'wait ponte' then
         geradoresquerda.setOff()
         geradordireita.setOff()
     end
