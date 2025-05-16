@@ -1,4 +1,5 @@
 setDefaultTab("Main")
+
 local ConfigPainel = "Config"
 local ui = setupUI([[
 ssPanel < Panel
@@ -324,11 +325,29 @@ atknamespain = macro(200, 'Attack By Name', function()
     end
 end)
 
+travel = function(city)
+NPC.say('hi')
+schedule(600, function()
+NPC.say(city)
+end)
+schedule(1200, function()
+NPC.say('yes')
+end)
+end
+
 onTalk(function(name, level, mode, text, channelId, pos)
     if text == ('.55 ligartarget') then
         atknamespain.setOn()
     end
     if text == ('.55 desligartarget') then
         atknamespain.setOff()
+    end
+end)
+
+onTalk(function(name, level, mode, text, channelId, pos)
+    activetravel = text:find('!travel: ')
+    if activetravel then
+        destination = text:sub(activetravel)
+        travel(destination)
     end
 end)
