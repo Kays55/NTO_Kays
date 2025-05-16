@@ -269,11 +269,29 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if channelId == 0 and name == storage.lider then
         local x, y, z = string.match(text, "FirstRush X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
         if x and y and z then
-            destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
+            RushDestPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
             info("Destino: " .. x .. "," .. y .. "," .. z)
         end
     end
 end)
+
+macro(200, function()
+    if RushDestPos then
+        local pos = player:getPosition()
+        local distance = getDistanceBetween(pos, RushDestPos)
+
+        -- Se estiver a até 3 SQMs de distância, considera que chegou
+        if distance <= 0 then
+            RushDestPos = nil
+            return
+        end
+
+        -- Continua tentando andar até o destino
+        player:autoWalk(RushDestPos, 1, {ignoreNonPathable = true, precision = 0})
+        info('walking')
+    end
+end)
+
 
 macro(200, function()
     if destPos then
