@@ -30,7 +30,7 @@ MainWindow
 
   TabBar
     id: tmpTabBar
-    margin-left: 80
+    margin-left: 60
     anchors.top: parent.top
     anchors.left: parent.left
     anchors.right: parent.right
