@@ -165,6 +165,18 @@ if rootWidget then
             end
         end,MacrosPainel)
 
+        macro(1, 'RushControl', function()
+            if delaycontrol > now then return end
+            if modules.corelib.g_keyboard.areKeysPressed('Alt') and modules.corelib.g_keyboard.areKeysPressed('0') then
+                tile = getTileUnderCursor()
+                    if tile then
+                    tilepos = tile:getPosition()
+                    sayChannel(0, 'FirstRush X: ' .. tilepos.x .. ', Y: ' .. tilepos.y .. ', Z: ' .. tilepos.z)
+                    delaycontrol = now + 1000       
+                end
+            end
+        end,MacrosPainel)
+
         atknamespain = macro(200, 'Attack By Name', function()
             for _, creature in ipairs(getSpectators(posz())) do
                 if target then
