@@ -288,7 +288,8 @@ macro(200, function()
         end
 
         -- Continua tentando andar até o destino
-        player:autoWalk(destPos, 1, {ignoreNonPathable = true, precision = 3})
+        player:autoWalk(destPos, 1, {ignoreNonPathable = true, precision = 4})
+        info('walking')
     end
 end)
 
