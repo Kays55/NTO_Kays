@@ -65,10 +65,13 @@ if rootWidget then
     for v = 1, 1 do
         local onPainel = g_ui.createWidget("ssPanel") -- Creates Panel
         onPainel:setId("panelButtons") -- sets ID
-        tabBar:addTab("Macros", onPainel)
+        tabBar:addTab("On", onPainel)
         local offPainel = g_ui.createWidget("ssPanel")
         offPainel:setId("panelButtons") -- sets ID
-        tabBar:addTab("Special", offPainel)
+        tabBar:addTab("Off", offPainel)
+        local MacrosPainel = g_ui.createWidget("ssPanel")
+        MacrosPainel:setId("panelButtons") -- sets ID
+        tabBar:addTab("Macros", MacrosPainel)
 
         UI.Button("Imortal", function() 
           sayChannel(0,'.55 useImortal') 
@@ -123,8 +126,49 @@ if rootWidget then
         end, onPainel)
         UI.Button("Pvp off", function() 
           sayChannel(0,'.55 pvp off') 
-        end, offPainel)       
+        end, offPainel)
+
+        voltarggn = macro(200, 'ggnback', function()
+            if posz() == 7 then return end
+            if posz() == 5 then
+                player:autoWalk(sqmtptemplo, 1, {ignoreNonPathable = true, precision = 0})
+            elseif posz() == 6 then
+                player:autoWalk(sqmbarco, 1, {ignoreNonPathable = true, precision = 0})
+                schedule(3000, function()
+                    if geradoresquerda.isOn() then
+                        player:autoWalk(SqmCristalEsquerda, 1, {ignoreNonPathable = true, precision = 0})
+                    elseif geradordireita.isOn() then
+                        player:autoWalk(SqmCristalEsquerda, 1, {ignoreNonPathable = true, precision = 0})
+                    end
+                end)
+            end
+        end,MacrosPainel)
         
+        delaycontrol = now
+        macro(1, 'mccontrol', function()
+            if delaycontrol > now then return end
+            if modules.corelib.g_keyboard.areKeysPressed('Alt') and modules.corelib.g_keyboard.areKeysPressed('0') then
+                tile = getTileUnderCursor()
+                    if tile then
+                    tilepos = tile:getPosition()
+                    sayChannel(0, 'Agroup X: ' .. tilepos.x .. ', Y: ' .. tilepos.y .. ', Z: ' .. tilepos.z)
+                    delaycontrol = now + 1000       
+                end
+            end
+        end,MacrosPainel)
+
+        atknamespain = macro(200, 'Attack By Name', function()
+            for _, creature in ipairs(getSpectators(posz())) do
+                if target then
+                    if g_game.isAttacking() and target == g_game.getAttackingCreature():getName() then return end
+                    if creature:getName() == target then
+                    g_game.attack(creature)
+                    end
+                end
+            end
+        end,MacrosPainel)
+        geradoresquerda = macro(200, 'Gen Esquerda',function()end,MacrosPainel)
+        geradordireita = macro(200, 'Gen direita',function()end,MacrosPainel)
     end
 
     McControlWindows.closeButton.onClick = function(widget)
@@ -138,18 +182,7 @@ if rootWidget then
     end
 end
 
-delaycontrol = now
-macro(1, 'mccontrol', function()
-    if delaycontrol > now then return end
-    if modules.corelib.g_keyboard.areKeysPressed('Alt') and modules.corelib.g_keyboard.areKeysPressed('0') then
-        tile = getTileUnderCursor()
-            if tile then
-            tilepos = tile:getPosition()
-            sayChannel(0, 'Agroup X: ' .. tilepos.x .. ', Y: ' .. tilepos.y .. ', Z: ' .. tilepos.z)
-            delaycontrol = now + 1000       
-        end
-    end
-end)
+
 
 
 UI.TextEdit(storage.lider or "Madamada", function(widget, newText)
@@ -236,21 +269,6 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
-voltarggn = macro(200, 'ggnback', function()
-    if posz() == 7 then return end
-    if posz() == 5 then
-        player:autoWalk(sqmtptemplo, 1, {ignoreNonPathable = true, precision = 0})
-    elseif posz() == 6 then
-        player:autoWalk(sqmbarco, 1, {ignoreNonPathable = true, precision = 0})
-        schedule(3000, function()
-            if geradoresquerda.isOn() then
-                player:autoWalk(SqmCristalEsquerda, 1, {ignoreNonPathable = true, precision = 0})
-            elseif geradordireita.isOn() then
-                player:autoWalk(SqmCristalEsquerda, 1, {ignoreNonPathable = true, precision = 0})
-            end
-        end)
-    end
-end)
 
 
 searchForGuild = function()
@@ -311,17 +329,6 @@ end)
 onTalk(function(name, level, mode, text, channelId, pos)
     if text:find('follow off') then
         g_game.setChaseMode(0)
-    end
-end)
-
-atknamespain = macro(200, 'Attack By Name', function()
-    for _, creature in ipairs(getSpectators(posz())) do
-        if target then
-            if g_game.isAttacking() and target == g_game.getAttackingCreature():getName() then return end
-            if creature:getName() == target then
-            g_game.attack(creature)
-            end
-        end
     end
 end)
 
