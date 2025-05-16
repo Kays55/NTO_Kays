@@ -187,8 +187,8 @@ if rootWidget then
                 end
             end
         end,MacrosPainel)
-        geradoresquerda = macro(200, 'Gen Esquerda',function()end,MacrosPainel)
-        geradordireita = macro(200, 'Gen direita',function()end,MacrosPainel)
+        geradoresquerda = macro(200, 'Cristal Esquerda',function()end,MacrosPainel)
+        geradordireita = macro(200, 'Cristal direita',function()end,MacrosPainel)
         firstrush = macro(200, 'FirstRush',function()end,MacrosPainel)
     end
 
