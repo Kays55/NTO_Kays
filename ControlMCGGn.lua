@@ -351,7 +351,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
         voltarggn.setOn()
     end
     if text == ('.55 offvoltarggn') then
-        voltarggn.setOn()
+        voltarggn.setOff()
     end
 end)
 
