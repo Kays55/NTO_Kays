@@ -399,7 +399,7 @@ searchForGuild = function()
 end
 stoptrying = 0
 macro(1, function()
-    if stoptrying > 5 then return end
+    if stoptrying > 3 then return end
     if not guild then
         if not requestedGuild then
             requestedGuild = true
