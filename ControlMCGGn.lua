@@ -397,8 +397,9 @@ searchForGuild = function()
         return schedule(3000, searchForGuild)
     end)
 end
-
+stoptrying = 0
 macro(1, function()
+    if stoptrying > 5 then return end
     if not guild then
         if not requestedGuild then
             requestedGuild = true
@@ -408,6 +409,7 @@ macro(1, function()
     end
   if getChannelId(guild) then return end
     return g_game.joinChannel(0) and delay(500)
+    stoptrying = stoptrying + 1
 end)
 
 
