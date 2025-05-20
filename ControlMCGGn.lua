@@ -209,7 +209,7 @@ if rootWidget then
 
 
 
-        chiclete100 = macro(1, 'Chiclete 100% Ryan', function()
+        enemyggn = macro(1, 'Enemy Village', function()
           local possibleTarget = false
           for _, creature in ipairs(getSpectators(posz())) do
             local specHP = creature:getHealthPercent()
@@ -328,10 +328,10 @@ end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
     if text == ('.55 chiclete100') then
-        chiclete100.setOn()
+        enemyggn.setOn()
     end
     if text == ('.55 offchiclete100') then
-        chiclete100.setOff()
+        enemyggn.setOff()
     end
 end)
 
