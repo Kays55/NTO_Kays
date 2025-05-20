@@ -213,7 +213,7 @@ if rootWidget then
           local possibleTarget = false
           for _, creature in ipairs(getSpectators(posz())) do
             local specHP = creature:getHealthPercent()
-            if creature:isPlayer() and specHP and specHP > 0 and specHP <= 100 then
+            if creature:isPlayer() and specHP and specHP > 0 and specHP <= 95 then
               if not friendList[creature:getName():lower()] and creature:getEmblem() ~= 1  then
                 if creature:canShoot() then
                   if not possibleTarget or possibleTargetHP > specHP or (possibleTargetHP == specHP and possibleTarget:getId() < creature:getId()) then
