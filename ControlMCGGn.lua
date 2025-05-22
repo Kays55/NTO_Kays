@@ -326,6 +326,11 @@ macro(1000, function()
     end
 end)
 
+onTalk(function(name, level, mode, text, channelId, pos)
+    if text:find('Stop') then
+        destPos = nil
+    end
+end)
 
 macro(1000, function()
     if destPos then
