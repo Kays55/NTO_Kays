@@ -117,7 +117,7 @@ if rootWidget then
           sayChannel(0,'.55 enemyOff') 
         end, offPainel)
 
-        UI.Button("ChicleteOff", function() 
+        UI.Button("ChicleteOn", function() 
             sayChannel(0,'.55 ChicleteOn')
         end, onPainel)
 
