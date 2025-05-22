@@ -109,13 +109,21 @@ if rootWidget then
           sayChannel(0,'follow off') 
         end, onPainel)
     
-        UI.Button("ChicleteOn", function() 
-          sayChannel(0,'.55 chiclete100') 
+        UI.Button("EnemyOn", function() 
+          sayChannel(0,'.55 enemyOn') 
+        end, onPainel)
+
+        UI.Button("EnemyOff", function() 
+          sayChannel(0,'.55 enemyOff') 
+        end, offPainel)
+
+        UI.Button("ChicleteOff", function() 
+            sayChannel(0,'.55 ChicleteOn')
         end, onPainel)
 
         UI.Button("ChicleteOff", function() 
-          sayChannel(0,'.55 offchiclete100') 
-        end, offPainel)
+            sayChannel(0,'.55 ChicleteOFF')
+        end, onPainel)
 
         UI.Button("BackGGN", function() 
           sayChannel(0,'.55 voltarggn') 
@@ -206,10 +214,25 @@ if rootWidget then
         end
 
 
+    chicleteGGN = macro(1, "Chicletinho 100%", function()
 
+    for _,pla in ipairs(getSpectators(posz())) do
 
+        attacked = g_game.getAttackingCreature()
 
-        enemyggn = macro(1, 'Enemy Village', function()
+        if not attacked or attacked:isMonster() or attacked:isPlayer() and pla:getHealthPercent() < attacked:getHealthPercent()*0.6 then
+            if pla:isPlayer() and pla:getHealthPercent() < 100 and pla:getEmblem() ~= 1 and pla:getSkull() <= 3 then 
+                g_game.attack(pla)
+            end
+        end
+
+    end
+
+    delay(100)
+
+end)
+
+        enemyggn = macro(1, 'Enemy GGN', function()
           local possibleTarget = false
           for _, creature in ipairs(getSpectators(posz())) do
             local specHP = creature:getHealthPercent()
@@ -275,13 +298,13 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
-macro(200, function()
+macro(1000, function()
     if RushDestPos then
         local pos = player:getPosition()
         local distance = getDistanceBetween(pos, RushDestPos)
 
         -- Se estiver a até 3 SQMs de distância, considera que chegou
-        if distance <= 0 then
+        if distance <= 1 then
             RushDestPos = nil
             return
         end
@@ -293,7 +316,7 @@ macro(200, function()
 end)
 
 
-macro(200, function()
+macro(1000, function()
     if destPos then
         local pos = player:getPosition()
         local distance = getDistanceBetween(pos, destPos)
@@ -327,11 +350,17 @@ onTalk(function(name, level, mode, text, channelId, pos)
 end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
-    if text == ('.55 chiclete100') then
+    if text == ('.55 enemyOn') then
         enemyggn.setOn()
     end
-    if text == ('.55 offchiclete100') then
+    if text == ('.55 enemyOff') then
         enemyggn.setOff()
+    end
+    if text == '.55 ChicleteOn' then
+        chicleteGGN.setOn()
+    end
+    if text == '.55 ChicleteOFF' then
+        chicleteGGN.setOff()
     end
 end)
 
@@ -376,7 +405,34 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
+onTalk(function(name, level, mode, text, channelId, pos)
+    local playerName = player:getName()
 
+    -- Tenta capturar: senha, nome e direção
+    local senha, matchName, direction = text:match("^(%d+)%s+(%w+)%s+Ande%s+(%a+)$")
+
+    -- Verifica se tudo foi capturado corretamente e se os dados batem
+    if senha == "55" and matchName == playerName and direction then
+        local pos = player:getPosition()
+        local newPos = {x = pos.x, y = pos.y, z = pos.z}
+
+        direction = direction:lower()
+
+        if direction == "north" then
+            newPos.y = newPos.y - 1
+        elseif direction == "sul" then
+            newPos.y = newPos.y + 1
+        elseif direction == "direita" then
+            newPos.x = newPos.x + 1
+        elseif direction == "esquerda" then
+            newPos.x = newPos.x - 1
+        else
+            return -- Direção inválida
+        end
+
+        g_game.walk(newPos, 0)
+    end
+end)
 
 searchForGuild = function()
     g_game.requestChannels()
