@@ -228,29 +228,40 @@ if rootWidget then
 
     end
 
-    delay(100)
+    delay(300)
 
-end)
+end,MacrosPainel)
 
-        enemyggn = macro(1, 'Enemy GGN', function()
-          local possibleTarget = false
-          for _, creature in ipairs(getSpectators(posz())) do
-            local specHP = creature:getHealthPercent()
-            if creature:isPlayer() and specHP and specHP > 0 and specHP <= 95 then
-              if not friendList[creature:getName():lower()] and creature:getEmblem() ~= 1  then
-                if creature:canShoot() then
-                  if not possibleTarget or possibleTargetHP > specHP or (possibleTargetHP == specHP and possibleTarget:getId() < creature:getId()) then
-                    possibleTarget = creature
-                    possibleTargetHP = possibleTarget:getHealthPercent()
-                  end
-                end
-              end
-            end
+local friendList = {'toei', 'ryan', 'darknuss', ''}
+
+--- nao editar nada abaixo disso
+
+for index, friendName in ipairs(friendList) do
+     friendList[friendName:lower():trim()] = true
+    friendList[index] = nil
+end
+
+
+        enemyggn = macro(1, 'Enemy Full', function()
+  local possibleTarget = false
+  for _, creature in ipairs(getSpectators(posz())) do
+    local specHP = creature:getHealthPercent()
+    if creature:isPlayer() and specHP then
+      if not friendList[creature:getName():lower()] and creature:getEmblem() ~= 1 then
+        if creature:canShoot() then
+          if not possibleTarget or possibleTargetHP > specHP or (possibleTargetHP == specHP and possibleTarget:getId() < creature:getId()) then
+            possibleTarget = creature
+            possibleTargetHP = possibleTarget:getHealthPercent()
           end
-          if possibleTarget and g_game.getAttackingCreature() ~= possibleTarget then
-            g_game.attack(possibleTarget)
         end
-        end,MacrosPainel)
+      end
+    end
+  end
+  if possibleTarget and g_game.getAttackingCreature() ~= possibleTarget then
+    g_game.attack(possibleTarget)
+    delay(300)
+end
+end,MacrosPainel)
 
 
     end
