@@ -321,7 +321,7 @@ macro(1000, function()
         end
 
         -- Continua tentando andar até o destino
-        player:autoWalk(RushDestPos, 1, {ignoreNonPathable = true, precision = 0})
+        player:autoWalk(RushDestPos, 1, {ignoreNonPathable = true, precision = 1})
         info('walking')
     end
 end)
@@ -339,7 +339,7 @@ macro(1000, function()
         end
 
         -- Continua tentando andar até o destino
-        player:autoWalk(destPos, 1, {ignoreNonPathable = true, precision = 0})
+        player:autoWalk(destPos, 1, {ignoreNonPathable = true, precision = 1})
         info('walking')
     end
 end)
