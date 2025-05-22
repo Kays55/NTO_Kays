@@ -441,7 +441,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
             return -- Direção inválida
         end
 
-        g_game.walk(newPos, 0)
+        player:autoWalk(newPos, 0)
     end
 end)
 
