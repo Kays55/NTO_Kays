@@ -156,7 +156,7 @@ if (x >= 1020 and x <= 1032) and (y >= 906 and y <= 914) and posz() == 5 then
 else
     return false
 end
-end)
+end
 
 GGNBoat = function()
 if (x >= 1936 and x <= 1959) and (y >= 1070 and y <= 1089) and posz() == 5 then
@@ -164,7 +164,7 @@ if (x >= 1936 and x <= 1959) and (y >= 1070 and y <= 1089) and posz() == 5 then
 else
     return false
 end
-end)
+end
 
         voltarggn = macro(200, 'ggnback', function()
             if posz() == 7 then return end
