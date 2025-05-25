@@ -149,11 +149,28 @@ if rootWidget then
           sayChannel(0,'.55 abortrush') 
         end, offPainel)
 
+
+TempleSpawn = function()
+if (x >= 1020 and x <= 1032) and (y >= 906 and y <= 914) and posz() == 5 then
+    return true
+else
+    return false
+end
+end)
+
+GGNBoat = function()
+if (x >= 1936 and x <= 1959) and (y >= 1070 and y <= 1089) and posz() == 5 then
+    return true
+else
+    return false
+end
+end)
+
         voltarggn = macro(200, 'ggnback', function()
             if posz() == 7 then return end
-            if posz() == 5 then
+            if TempleSpawn() then
                 player:autoWalk(sqmtptemplo, 1, {ignoreNonPathable = true, precision = 0})
-            elseif posz() == 6 then
+            elseif GGNBoat() then
                 player:autoWalk(sqmbarco, 1, {ignoreNonPathable = true, precision = 0})
                 schedule(3000, function()
                     if geradoresquerda.isOn() then
