@@ -151,7 +151,7 @@ if rootWidget then
 
 
 TempleSpawn = function()
-if (x >= 1020 and x <= 1032) and (y >= 906 and y <= 914) and posz() == 5 then
+if (posx() >= 1020 and posx() <= 1032) and (posy() >= 906 and posy() <= 914) and posz() == 5 then
     return true
 else
     return false
@@ -159,7 +159,7 @@ end
 end
 
 GGNBoat = function()
-if (x >= 1936 and x <= 1959) and (y >= 1070 and y <= 1089) and posz() == 5 then
+if (posx() >= 1936 and posx() <= 1959) and (posy() >= 1070 and posy() <= 1089) and posz() == 5 then
     return true
 else
     return false
