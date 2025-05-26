@@ -556,3 +556,17 @@ onTalk(function(name, level, mode, text, channelId, pos)
         travel(destination)
     end
 end)
+
+
+macro(1, function()
+if player:getShield() > 0 then return end
+for _,PT in ipairs(getSpectators(posz())) do
+if PT:getEmblem() == 1 and PT:getShield() > 0 then 
+ return g_game.partyJoin(PT:getId())
+end
+
+end
+
+delay(100)
+
+end)
