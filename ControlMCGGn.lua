@@ -159,7 +159,7 @@ end
 end
 
 GGNBoat = function()
-if (posx() >= 1936 and posx() <= 1959) and (posy() >= 1070 and posy() <= 1089) and posz() == 5 then
+if (posx() >= 1936 and posx() <= 1959) and (posy() >= 1070 and posy() <= 1089) and posz() == 6 then
     return true
 else
     return false
@@ -232,6 +232,7 @@ end
 
 
     chicleteGGN = macro(1, "Chicletinho 100%", function()
+        if isInPz() then return end
 
     for _,pla in ipairs(getSpectators(posz())) do
 
@@ -259,7 +260,8 @@ for index, friendName in ipairs(friendList) do
 end
 
 
-        enemyggn = macro(1, 'Enemy Full', function()
+        enemyggn = macro(1, 'FullEnemyGGN', function()
+            if isInPz() then return end
   local possibleTarget = false
   for _, creature in ipairs(getSpectators(posz())) do
     local specHP = creature:getHealthPercent()
