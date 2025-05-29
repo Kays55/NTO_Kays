@@ -357,7 +357,7 @@ macro(1000, function()
         local distance = getDistanceBetween(pos, destPos)
 
         -- Se estiver a até 3 SQMs de distância, considera que chegou
-        if distance <= 0 then
+        if distance <= 4 then
             destPos = nil
             return
         end
