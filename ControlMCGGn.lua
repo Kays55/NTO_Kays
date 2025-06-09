@@ -489,7 +489,7 @@ searchForGuild = function()
     end)
 end
 
-macro(1, function()
+macro(1, 'JoinGuildChat', function()
     if not guild then
         if not requestedGuild then
             requestedGuild = true
