@@ -231,7 +231,7 @@ end
         end
 
 
-    chicleteGGN = macro(1, "Chicletinho 100%", function()
+    chicleteGGN = macro(1, "Chicletinho 89%", function()
         if isInPz() then return end
 
     for _,pla in ipairs(getSpectators(posz())) do
@@ -239,7 +239,7 @@ end
         attacked = g_game.getAttackingCreature()
 
         if not attacked or attacked:isMonster() or attacked:isPlayer() and pla:getHealthPercent() < attacked:getHealthPercent()*0.6 then
-            if pla:isPlayer() and pla:getHealthPercent() < 100 and pla:getEmblem() ~= 1 and pla:getSkull() <= 3 then 
+            if pla:isPlayer() and pla:getHealthPercent() < 89 and pla:getEmblem() ~= 1 and pla:getSkull() <= 3 then 
                 g_game.attack(pla)
             end
         end
@@ -503,14 +503,23 @@ end)
 
 
 onTalk(function(name, level, mode, text, channelId, pos)
-  if name == player:getName() then return end
-  activetext = text:find('Attack: ')
-    if activetext then
-        target = text:sub(activetext+8)
-        info(target)
+  if name == storage.lider then
+    activetext = text:find('Attack: ')
+        if activetext then
+            target = text:sub(activetext+8)
+            info(target)
+        end
     end
 end)
 
+onTalk(function(name, level, mode, text, channelId, pos)
+  if name == storage.lider then
+    if text == 'CancelTargetName' then
+            target == ''
+            g_game.cancelAttack()
+        end
+    end
+end)
 
 
 onTalk(function(name, level, mode, text, channelId, pos)
@@ -569,4 +578,28 @@ end
 
 delay(100)
 
+end)
+lastAttacked = ''
+storage.delayComand = now
+
+
+macro(200, 'Sync Attack', function()
+    if storage.delayComand >= now then return end
+    if storage.delayComand < now then
+        if g_game.isAttacking() then
+            attacked = g_game.getAttackingCreature()
+            attackedname = attacked:getName()
+            if lastAttacked ~= attackedname then
+                sayChannel(0, 'Attack: ' .. attackedname)
+                storage.delayComand = now + 1200
+                lastAttacked = attackedname
+            end
+        end
+    end
+end)
+
+onKeyDown(function(keys)
+    if keys == 'Esc' then
+        sayChannel(0, 'CancelTargetName')
+    end
 end)
