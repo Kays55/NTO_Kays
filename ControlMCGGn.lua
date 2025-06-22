@@ -536,7 +536,7 @@ end)
 onTalk(function(name, level, mode, text, channelId, pos)
   if name == storage.lider then
     if text == 'CancelTargetName' then
-            target == ''
+            target = ''
             g_game.cancelAttack()
         end
     end
