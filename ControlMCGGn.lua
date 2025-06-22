@@ -424,9 +424,10 @@ macro(1000, function()
         liderCreature = getCreatureByName(storage.Lider)
         if liderCreature then
             positionliderCreature = liderCreature:getPosition()
-        -- Continua tentando andar até o destino
-        player:autoWalk(positionliderCreature, 1, {ignoreNonPathable = true, precision = 2})
-        info('walking')
+            -- Continua tentando andar até o destino
+            player:autoWalk(positionliderCreature, 1, {ignoreNonPathable = true, precision = 2})
+            info('walking')
+        end
     end
 end)
 
