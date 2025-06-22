@@ -97,10 +97,18 @@ if rootWidget then
           sayChannel(0,'.55 desligartarget') 
         end, onPainel)
 
+        UI.Button("CanceltrgtName", function() 
+            sayChannel(0,'CancelTargetName')
+        end, onPainel)
+
         UI.Button("Reset Target", function() 
           sayChannel(0,'.55 resetarTarget') 
         end, onPainel)
 
+        UI.Button("FollowLider", function() 
+          sayChannel(0,'SeguirLider') 
+        end, onPainel)
+        
         UI.Button("Follow", function() 
           sayChannel(0,'follow on') 
         end, onPainel)
@@ -119,11 +127,11 @@ if rootWidget then
 
         UI.Button("ChicleteOn", function() 
             sayChannel(0,'.55 ChicleteOn')
-        end, onPainel)
+        end, onPainel)       
 
         UI.Button("ChicleteOff", function() 
             sayChannel(0,'.55 ChicleteOFF')
-        end, onPainel)
+        end, offPainel)
 
         UI.Button("BackGGN", function() 
           sayChannel(0,'.55 voltarggn') 
@@ -141,13 +149,13 @@ if rootWidget then
           sayChannel(0,'.55 pvp off') 
         end, offPainel)
 
-        UI.Button("FirstRush", function() 
-          talkPrivate(storage.Tanker, '.55 firstrush') 
-        end, onPainel)
+        --UI.Button("FirstRush", function() 
+          --talkPrivate(storage.Tanker, '.55 firstrush') 
+        --end, onPainel)
 
-        UI.Button("AbortFirstRush", function() 
-          sayChannel(0,'.55 abortrush') 
-        end, offPainel)
+        --UI.Button("AbortFirstRush", function() 
+          --sayChannel(0,'.55 abortrush') 
+        --end, offPainel)
 
 
 TempleSpawn = function()
