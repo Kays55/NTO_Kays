@@ -218,7 +218,7 @@ end
         atknamespain = macro(200, 'Attack By Name', function()
             for _, creature in ipairs(getSpectators(posz())) do
                 if target then
-                    if g_game.isAttacking() and target == g_game.getAttackingCreature():getName() then return end
+                    if g_game.isAttacking() and target == g_game.getAttackingCreature():getName() or player:getName() == storage.lider then return end
                     if creature:getName() == target then
                     g_game.attack(creature)
                     end
@@ -314,12 +314,15 @@ UI.TextEdit(storage.lider or "Madamada", function(widget, newText)
 storage.lider = newText
 end)
 
+seguirlider = false
+
 onTalk(function(name, level, mode, text, channelId, pos)
     if name == player:getName() then return end
     if channelId == 0 and name == storage.lider then
         local x, y, z = string.match(text, "Agroup X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
         if x and y and z then
             seguirlider = false
+            info('Seguir Lider False')
             destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
             info("Destino: " .. x .. "," .. y .. "," .. z)
         end
@@ -366,7 +369,7 @@ macro(1000, function()
         local distance = getDistanceBetween(pos, destPos)
 
         -- Se estiver a até 3 SQMs de distância, considera que chegou
-        if distance <= 4 then
+        if distance <= 2 then
             destPos = nil
             return
         end
@@ -422,6 +425,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if name == storage.lider then
         if text == 'SeguirLider' then
             seguirlider = true
+            info('Seguir Lider True')
         end
     end
 end)
