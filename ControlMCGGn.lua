@@ -311,6 +311,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
     if channelId == 0 and name == storage.lider then
         local x, y, z = string.match(text, "Agroup X:%s*(%d+),%s*Y:%s*(%d+),%s*Z:%s*(%d+)")
         if x and y and z then
+            seguirlider = false
             destPos = {x = tonumber(x), y = tonumber(y), z = tonumber(z)}
             info("Destino: " .. x .. "," .. y .. "," .. z)
         end
@@ -409,6 +410,25 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
+onTalk(function(name, level, mode, text, channelId, pos)
+    if name == storage.lider then
+        if text == 'SeguirLider' then
+            seguirlider = true
+        end
+    end
+end)
+
+
+macro(1000, function()
+    if seguirlider then
+        liderCreature = getCreatureByName(storage.Lider)
+        if liderCreature then
+            positionliderCreature = liderCreature:getPosition()
+        -- Continua tentando andar até o destino
+        player:autoWalk(positionliderCreature, 1, {ignoreNonPathable = true, precision = 2})
+        info('walking')
+    end
+end)
 
 onTalk(function(name, level, mode, text, channelId, pos)
     if text == ('.55 voltarggn') then
