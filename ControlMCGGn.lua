@@ -25,7 +25,7 @@ local McControlWindows = setupUI([[
 
 MainWindow
   !text: tr('MC Config')
-  size: 250 380
+  size: 280 380
   @onEscape: self:hide()
 
   TabBar
@@ -41,7 +41,7 @@ MainWindow
     anchors.left: parent.left
     anchors.right: parent.right
     margin-top: 3
-    size: 200 285
+    size: 240 285
     image-source: /data/images/ui/panel_flat
     image-border: 6
 
@@ -363,7 +363,7 @@ onTalk(function(name, level, mode, text, channelId, pos)
     end
 end)
 
-macro(1000, function()
+macro(200, function()
     if destPos then
         local pos = player:getPosition()
         local distance = getDistanceBetween(pos, destPos)
@@ -431,14 +431,20 @@ onTalk(function(name, level, mode, text, channelId, pos)
 end)
 
 
-macro(1000, function()
+macro(100, function()
     if seguirlider then
-        liderCreature = getCreatureByName(storage.Lider)
-        if liderCreature then
-            positionliderCreature = liderCreature:getPosition()
-            -- Continua tentando andar até o destino
-            player:autoWalk(positionliderCreature, 1, {ignoreNonPathable = true, precision = 2})
-            info('walking')
+        if player:getName() == storage.lider or TempleSpawn() then
+            return
+        end
+        for _, creature in pairs(getSpectators()) do
+            if creature:getName() == storage.lider then
+                local pos = player:getPosition()
+                local liderpos = creature:getPosition()
+                local distance = getDistanceBetween(pos, liderpos)
+                if distance > 2 then
+                    player:autoWalk(liderpos, 1, {ignoreNonPathable = true, precision = 1})
+                end
+            end
         end
     end
 end)
@@ -632,7 +638,24 @@ macro(200, 'Sync Attack', function()
 end)
 
 onKeyDown(function(keys)
-    if keys == 'Esc' then
+    if keys == 'Escape' then
         sayChannel(0, 'CancelTargetName')
+    end
+end)
+
+macro(50, function()
+    if seguirlider then
+        if player:getName() ~= storage.lider then
+            for _, creature in pairs(getSpectators()) do
+                if creature:getName() == storage.lider then
+                    local pos = player:getPosition()
+                    local liderpos = creature:getPosition()
+                    local distance = getDistanceBetween(pos, liderpos)
+                    if distance > 2 then
+                        player:autoWalk(liderpos, 1, {ignoreNonPathable = true, precision = 1})
+                    end
+                end
+            end
+        end
     end
 end)
