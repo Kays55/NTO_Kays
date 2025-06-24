@@ -25,7 +25,7 @@ local McControlWindows = setupUI([[
 
 MainWindow
   !text: tr('MC Config')
-  size: 280 380
+  size: 280 480
   @onEscape: self:hide()
 
   TabBar
@@ -41,7 +41,7 @@ MainWindow
     anchors.left: parent.left
     anchors.right: parent.right
     margin-top: 3
-    size: 240 285
+    size: 200 360
     image-source: /data/images/ui/panel_flat
     image-border: 6
 
