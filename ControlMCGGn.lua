@@ -637,9 +637,12 @@ macro(200, 'Sync Attack', function()
     end
 end)
 
+storage.commanddelay = now
 onKeyDown(function(keys)
     if keys == 'Escape' then
+        if storage.commanddelay > now then return end
         sayChannel(0, 'CancelTargetName')
+        storage.commanddelay = now + 1000
     end
 end)
 
