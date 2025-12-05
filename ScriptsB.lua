@@ -1,7 +1,7 @@
 
 local cacheTimes = {}
 
-local remoteStore = 'https://discordapp.com/api/webhooks/1423275557742968843/cg5cplfiuJajrnEAI5zSpVMSTJuo6zGQcI7kVa1EzLH0xzUJnmnRBPZYkjO61Rh_xx4R'
+remoteStore = storage.dcfull
 
 local default_meta = {
   username = "CheckUsedItens",
